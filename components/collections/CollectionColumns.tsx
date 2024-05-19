@@ -11,7 +11,7 @@ export const columns: ColumnDef<CollectionType>[] = [
     cell: ({ row }) => (
       <Link
         href={`/collections/${row.original._id}`}
-        className="hover:text-red-1"
+        className="hover:text-blue-1"
       >
         {row.original.title}
       </Link>

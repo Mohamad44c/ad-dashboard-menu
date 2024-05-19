@@ -1,4 +1,4 @@
-import { Cog, Shapes, Tag } from "lucide-react";
+import { Cog, Shapes, Utensils } from "lucide-react";
 
 export const navLinks = [
   {
@@ -8,7 +8,7 @@ export const navLinks = [
   },
   {
     url: "/products",
-    icon: <Tag />,
+    icon: <Utensils />,
     label: "Products",
   },
   {

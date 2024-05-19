@@ -184,7 +184,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                 name="collections"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Collections</FormLabel>
+                    <FormLabel>Collections (Choose 1)</FormLabel>
                     <FormControl>
                       <MultiSelect
                         placeholder="Collections"
