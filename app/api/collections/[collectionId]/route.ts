@@ -12,7 +12,10 @@ export const GET = async (
   try {
     await connectToDB();
 
-    const collection = await Collection.findById(params.collectionId).populate({ path: "products", model: Product });
+    const collection = await Collection.findById(params.collectionId).populate({
+      path: "products",
+      model: Product,
+    });
 
     if (!collection) {
       return new NextResponse(
@@ -47,15 +50,15 @@ export const POST = async (
       return new NextResponse("Collection not found", { status: 404 });
     }
 
-    const { title, description, image } = await req.json();
+    const { title } = await req.json();
 
-    if (!title || !image) {
-      return new NextResponse("Title and image are required", { status: 400 });
+    if (!title) {
+      return new NextResponse("Title is required", { status: 400 });
     }
 
     collection = await Collection.findByIdAndUpdate(
       params.collectionId,
-      { title, description, image },
+      { title },
       { new: true }
     );
 
@@ -87,7 +90,7 @@ export const DELETE = async (
       { collections: params.collectionId },
       { $pull: { collections: params.collectionId } }
     );
-    
+
     return new NextResponse("Collection is deleted", { status: 200 });
   } catch (err) {
     console.log("[collectionId_DELETE]", err);

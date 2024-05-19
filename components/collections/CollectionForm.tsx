@@ -16,16 +16,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "../ui/textarea";
-import ImageUpload from "../custom ui/ImageUpload";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import Delete from "../custom ui/Delete";
+import Delete from "../custom-ui/Delete";
 
 const formSchema = z.object({
   title: z.string().min(2).max(20),
-  description: z.string().min(2).max(500).trim(),
-  image: z.string(),
 });
 
 interface CollectionFormProps {
@@ -43,17 +39,19 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initialData }) => {
       ? initialData
       : {
           title: "",
-          description: "",
-          image: "",
         },
   });
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement> | React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleKeyPress = (
+    e:
+      | React.KeyboardEvent<HTMLInputElement>
+      | React.KeyboardEvent<HTMLTextAreaElement>
+  ) => {
     if (e.key === "Enter") {
       e.preventDefault();
     }
-  }
-  
+  };
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
@@ -96,52 +94,27 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initialData }) => {
               <FormItem>
                 <FormLabel>Title</FormLabel>
                 <FormControl>
-                  <Input placeholder="Title" {...field} onKeyDown={handleKeyPress} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Description</FormLabel>
-                <FormControl>
-                  <Textarea placeholder="Description" {...field} rows={5} onKeyDown={handleKeyPress} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="image"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Image</FormLabel>
-                <FormControl>
-                  <ImageUpload
-                    value={field.value ? [field.value] : []}
-                    onChange={(url) => field.onChange(url)}
-                    onRemove={() => field.onChange("")}
+                  <Input
+                    placeholder="Title"
+                    {...field}
+                    onKeyDown={handleKeyPress}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+
           <div className="flex gap-10">
-            <Button type="submit" className="bg-blue-1 text-white">
-              Submit
-            </Button>
             <Button
               type="button"
               onClick={() => router.push("/collections")}
-              className="bg-blue-1 text-white"
+              className="bg-red-1 text-white"
             >
               Discard
+            </Button>
+            <Button type="submit" className="bg-blue-1 text-white">
+              Submit
             </Button>
           </div>
         </form>

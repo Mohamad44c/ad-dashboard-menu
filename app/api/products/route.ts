@@ -15,20 +15,9 @@ export const POST = async (req: NextRequest) => {
 
     await connectToDB();
 
-    const {
-      title,
-      description,
-      media,
-      category,
-      collections,
-      tags,
-      sizes,
-      colors,
-      price,
-      expense,
-    } = await req.json();
+    const { title, description, collections, price } = await req.json();
 
-    if (!title || !description || !media || !category || !price || !expense) {
+    if (!title || !price) {
       return new NextResponse("Not enough data to create a product", {
         status: 400,
       });
@@ -37,14 +26,8 @@ export const POST = async (req: NextRequest) => {
     const newProduct = await Product.create({
       title,
       description,
-      media,
-      category,
       collections,
-      tags,
-      sizes,
-      colors,
       price,
-      expense,
     });
 
     await newProduct.save();
@@ -82,4 +65,3 @@ export const GET = async (req: NextRequest) => {
 };
 
 export const dynamic = "force-dynamic";
-

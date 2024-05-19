@@ -17,29 +17,21 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
-import ImageUpload from "../custom ui/ImageUpload";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import Delete from "../custom ui/Delete";
-import MultiText from "../custom ui/MultiText";
-import MultiSelect from "../custom ui/MultiSelect";
-import Loader from "../custom ui/Loader";
+import Delete from "../custom-ui/Delete";
+import MultiSelect from "../custom-ui/MultiSelect";
+import Loader from "../custom-ui/Loader";
 
 const formSchema = z.object({
   title: z.string().min(2).max(20),
-  description: z.string().min(2).max(500).trim(),
-  media: z.array(z.string()),
-  category: z.string(),
+  description: z.string().trim(),
   collections: z.array(z.string()),
-  tags: z.array(z.string()),
-  sizes: z.array(z.string()),
-  colors: z.array(z.string()),
-  price: z.coerce.number().min(0.1),
-  expense: z.coerce.number().min(0.1),
+  price: z.coerce.number().min(0.1).max(100),
 });
 
 interface ProductFormProps {
-  initialData?: ProductType | null; //Must have "?" to make it optional
+  initialData?: ProductType | null;
 }
 
 const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
@@ -78,14 +70,8 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
       : {
           title: "",
           description: "",
-          media: [],
-          category: "",
           collections: [],
-          tags: [],
-          sizes: [],
-          colors: [],
           price: 0.1,
-          expense: 0.1,
         },
   });
 
@@ -171,29 +157,8 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="media"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Image</FormLabel>
-                <FormControl>
-                  <ImageUpload
-                    value={field.value}
-                    onChange={(url) => field.onChange([...field.value, url])}
-                    onRemove={(url) =>
-                      field.onChange([
-                        ...field.value.filter((image) => image !== url),
-                      ])
-                    }
-                  />
-                </FormControl>
-                <FormMessage className="text-red-1" />
-              </FormItem>
-            )}
-          />
 
-          <div className="md:grid md:grid-cols-3 gap-8">
+          <div className="md:grid md:grid-cols-2 gap-8">
             <FormField
               control={form.control}
               name="price"
@@ -212,63 +177,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="expense"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Expense ($)</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      placeholder="Expense"
-                      {...field}
-                      onKeyDown={handleKeyPress}
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-1" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="category"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Category</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Category"
-                      {...field}
-                      onKeyDown={handleKeyPress}
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-1" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="tags"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Tags</FormLabel>
-                  <FormControl>
-                    <MultiText
-                      placeholder="Tags"
-                      value={field.value}
-                      onChange={(tag) => field.onChange([...field.value, tag])}
-                      onRemove={(tagToRemove) =>
-                        field.onChange([
-                          ...field.value.filter((tag) => tag !== tagToRemove),
-                        ])
-                      }
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-1" />
-                </FormItem>
-              )}
-            />
+
             {collections.length > 0 && (
               <FormField
                 control={form.control}
@@ -298,70 +207,18 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                 )}
               />
             )}
-            <FormField
-              control={form.control}
-              name="colors"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Colors</FormLabel>
-                  <FormControl>
-                    <MultiText
-                      placeholder="Colors"
-                      value={field.value}
-                      onChange={(color) =>
-                        field.onChange([...field.value, color])
-                      }
-                      onRemove={(colorToRemove) =>
-                        field.onChange([
-                          ...field.value.filter(
-                            (color) => color !== colorToRemove
-                          ),
-                        ])
-                      }
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-1" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="sizes"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Sizes</FormLabel>
-                  <FormControl>
-                    <MultiText
-                      placeholder="Sizes"
-                      value={field.value}
-                      onChange={(size) =>
-                        field.onChange([...field.value, size])
-                      }
-                      onRemove={(sizeToRemove) =>
-                        field.onChange([
-                          ...field.value.filter(
-                            (size) => size !== sizeToRemove
-                          ),
-                        ])
-                      }
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-1" />
-                </FormItem>
-              )}
-            />
           </div>
 
           <div className="flex gap-10">
-            <Button type="submit" className="bg-blue-1 text-white">
-              Submit
-            </Button>
             <Button
               type="button"
               onClick={() => router.push("/products")}
-              className="bg-blue-1 text-white"
+              className="bg-red-1 text-white"
             >
               Discard
+            </Button>
+            <Button type="submit" className="bg-blue-1 text-white">
+              Submit
             </Button>
           </div>
         </form>

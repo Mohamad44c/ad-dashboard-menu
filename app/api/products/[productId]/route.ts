@@ -62,17 +62,11 @@ export const POST = async (
     const {
       title,
       description,
-      media,
-      category,
       collections,
-      tags,
-      sizes,
-      colors,
       price,
-      expense,
     } = await req.json();
 
-    if (!title || !description || !media || !category || !price || !expense) {
+    if (!title || !price) {
       return new NextResponse("Not enough data to create a new product", {
         status: 400,
       });
@@ -111,14 +105,8 @@ export const POST = async (
       {
         title,
         description,
-        media,
-        category,
         collections,
-        tags,
-        sizes,
-        colors,
         price,
-        expense,
       },
       { new: true }
     ).populate({ path: "collections", model: Collection });
@@ -175,4 +163,3 @@ export const DELETE = async (
 };
 
 export const dynamic = "force-dynamic";
-
