@@ -15,7 +15,8 @@ export const POST = async (req: NextRequest) => {
 
     await connectToDB();
 
-    const { title, description, collections, price } = await req.json();
+    const { title, description, collections, price, priceDineIn, image } =
+      await req.json();
 
     if (!title || !price) {
       return new NextResponse("Not enough data to create a product", {
@@ -28,6 +29,8 @@ export const POST = async (req: NextRequest) => {
       description,
       collections,
       price,
+      priceDineIn,
+      image,
     });
 
     await newProduct.save();

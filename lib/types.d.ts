@@ -10,6 +10,15 @@ type ProductType = {
   description: string;
   collections: [CollectionType];
   price: number;
+  priceDineIn: number;
+  image: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+type SettingType = {
+  _id: string;
+  rate: number;
   createdAt: Date;
   updatedAt: Date;
 };

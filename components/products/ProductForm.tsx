@@ -22,12 +22,15 @@ import toast from "react-hot-toast";
 import Delete from "../custom-ui/Delete";
 import MultiSelect from "../custom-ui/MultiSelect";
 import Loader from "../custom-ui/Loader";
+import ImageUpload from "../custom-ui/ImageUpload";
 
 const formSchema = z.object({
   title: z.string().min(2).max(20),
   description: z.string().trim(),
   collections: z.array(z.string()),
   price: z.coerce.number().min(0.1).max(100),
+  priceDineIn: z.coerce.number().min(0.1).max(100),
+  image: z.string(),
 });
 
 interface ProductFormProps {
@@ -72,6 +75,8 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
           description: "",
           collections: [],
           price: 0.1,
+          priceDineIn: 0.1,
+          image: "",
         },
   });
 
@@ -158,7 +163,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
             )}
           />
 
-          <div className="md:grid md:grid-cols-2 gap-8">
+          <div className="md:grid md:grid-cols-3 gap-8">
             <FormField
               control={form.control}
               name="price"
@@ -169,6 +174,24 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                     <Input
                       type="number"
                       placeholder="Price"
+                      {...field}
+                      onKeyDown={handleKeyPress}
+                    />
+                  </FormControl>
+                  <FormMessage className="text-red-1" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="priceDineIn"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Dine in Price ($)</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      placeholder="Dine in price"
                       {...field}
                       onKeyDown={handleKeyPress}
                     />
@@ -207,6 +230,24 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                 )}
               />
             )}
+          </div>
+
+          {/* image upload begin */}
+          <div className="md:grid md:grid-cols-2 gap-8">
+            <FormField
+              control={form.control}
+              name="image"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Image</FormLabel>
+                  <FormControl>
+                    <ImageUpload />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {/* image upload end */}
           </div>
 
           <div className="flex gap-10">
