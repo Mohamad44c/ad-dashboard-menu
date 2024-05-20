@@ -1,11 +1,16 @@
 "use client";
 
-import { UploadButton } from "@/utils/uploadthing";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Image from "next/image";
 
-export default function ImageUpload() {
+import { UploadButton } from "@/utils/uploadthing";
+
+interface ImageUploadProps {
+  value: string;
+}
+
+const ImageUpload: React.FC<ImageUploadProps> = ({ value }) => {
   const [imageUrl, setImageUrl] = useState("");
 
   return (
@@ -38,4 +43,5 @@ export default function ImageUpload() {
       />
     </>
   );
-}
+};
+export default ImageUpload;

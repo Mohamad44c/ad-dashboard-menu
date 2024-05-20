@@ -23,6 +23,8 @@ import Delete from "../custom-ui/Delete";
 import MultiSelect from "../custom-ui/MultiSelect";
 import Loader from "../custom-ui/Loader";
 import ImageUpload from "../custom-ui/ImageUpload";
+import { UploadButton } from "@/utils/uploadthing";
+import Image from "next/image";
 
 const formSchema = z.object({
   title: z.string().min(2).max(20),
@@ -42,6 +44,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
 
   const [loading, setLoading] = useState(true);
   const [collections, setCollections] = useState<CollectionType[]>([]);
+  const [imageUrl, setImageUrl] = useState("");
 
   const getCollections = async () => {
     try {
@@ -91,6 +94,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log("Form Data:", values);
     try {
       setLoading(true);
       const url = initialData
@@ -103,8 +107,8 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
       if (res.ok) {
         setLoading(false);
         toast.success(`Product ${initialData ? "updated" : "created"}`);
-        window.location.href = "/products";
-        router.push("/products");
+        // window.location.href = "/products";
+        // router.push("/products");
       }
     } catch (err) {
       console.log("[products_POST]", err);
@@ -241,7 +245,34 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                 <FormItem>
                   <FormLabel>Image</FormLabel>
                   <FormControl>
-                    <ImageUpload />
+                    <>
+                      {form.getValues().image && (
+                        <Image
+                          src={form.getValues().image}
+                          alt="Product Image"
+                          width={150}
+                          height={200}
+                          priority={true}
+                        />
+                      )}
+                      <UploadButton
+                        className="flex justify-start items-start"
+                        endpoint="imageUploader"
+                        onClientUploadComplete={(res) => {
+                          // Do something with the response
+                          // I need to save the uploaded file url + key to the database
+
+                          // console.log("Files: ", res);
+                          // gives image url
+                          setImageUrl(res[0].url);
+                          form.setValue("image", res[0].url);
+                          toast.success("Uploaded image successfully");
+                        }}
+                        onUploadError={(error: Error) => {
+                          toast.error(`ERROR! ${error.message}`);
+                        }}
+                      />
+                    </>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
