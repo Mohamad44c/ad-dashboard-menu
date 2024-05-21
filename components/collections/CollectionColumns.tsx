@@ -24,6 +24,7 @@ export const columns: ColumnDef<CollectionType>[] = [
   },
   {
     id: "actions",
+    header: "Actions",
     cell: ({ row }) => <Delete item="collection" id={row.original._id} />,
   },
 ];
