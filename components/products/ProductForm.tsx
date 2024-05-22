@@ -107,7 +107,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
       if (res.ok) {
         setLoading(false);
         toast.success(`Product ${initialData ? "updated" : "created"}`);
-        // window.location.href = "/products";
+        window.location.href = "/products";
         // router.push("/products");
       }
     } catch (err) {
@@ -236,7 +236,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
             )}
           </div>
 
-          {/* image upload begin */}
           <div className="md:grid md:grid-cols-2 gap-8">
             <FormField
               control={form.control}
@@ -259,11 +258,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                         className="flex justify-start items-start"
                         endpoint="imageUploader"
                         onClientUploadComplete={(res) => {
-                          // Do something with the response
-                          // I need to save the uploaded file url + key to the database
-
-                          // console.log("Files: ", res);
-                          // gives image url
                           setImageUrl(res[0].url);
                           form.setValue("image", res[0].url);
                           toast.success("Uploaded image successfully");
@@ -278,7 +272,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                 </FormItem>
               )}
             />
-            {/* image upload end */}
           </div>
 
           <div className="flex gap-10">
