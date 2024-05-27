@@ -6,6 +6,11 @@ const collectionSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  place: {
+    type: mongoose.Schema.Types.Number,
+    required: true,
+    unique: true,
+  },
   products: [
     {
       type: mongoose.Schema.Types.ObjectId,

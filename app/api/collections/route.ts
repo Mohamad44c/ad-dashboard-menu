@@ -14,7 +14,7 @@ export const POST = async (req: NextRequest) => {
 
     await connectToDB();
 
-    const { title } = await req.json();
+    const { title, place } = await req.json();
 
     const existingCollection = await Collection.findOne({ title });
 
@@ -22,12 +22,13 @@ export const POST = async (req: NextRequest) => {
       return new NextResponse("Collection already exists", { status: 400 });
     }
 
-    if (!title) {
-      return new NextResponse("Title is required", { status: 400 });
+    if (!title || !place) {
+      return new NextResponse("Title and place are required", { status: 400 });
     }
 
     const newCollection = await Collection.create({
       title,
+      place,
     });
 
     await newCollection.save();

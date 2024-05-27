@@ -4,7 +4,7 @@ export const navLinks = [
   {
     url: "/collections",
     icon: <Shapes />,
-    label: "Collections",
+    label: "Categories",
   },
   {
     url: "/products",

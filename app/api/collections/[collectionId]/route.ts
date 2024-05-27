@@ -50,7 +50,7 @@ export const POST = async (
       return new NextResponse("Collection not found", { status: 404 });
     }
 
-    const { title } = await req.json();
+    const { title, place } = await req.json();
 
     if (!title) {
       return new NextResponse("Title is required", { status: 400 });
@@ -58,7 +58,7 @@ export const POST = async (
 
     collection = await Collection.findByIdAndUpdate(
       params.collectionId,
-      { title },
+      { title, place },
       { new: true }
     );
 

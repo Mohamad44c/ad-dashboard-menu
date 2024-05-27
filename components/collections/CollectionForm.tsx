@@ -22,6 +22,7 @@ import Delete from "../custom-ui/Delete";
 
 const formSchema = z.object({
   title: z.string().min(2).max(20),
+  place: z.coerce.number().min(1).max(100),
 });
 
 interface CollectionFormProps {
@@ -39,6 +40,7 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initialData }) => {
       ? initialData
       : {
           title: "",
+          place: 1,
         },
   });
 
@@ -64,9 +66,9 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initialData }) => {
       });
       if (res.ok) {
         setLoading(false);
-        toast.success(`Collection ${initialData ? "updated" : "created"}`);
         window.location.href = "/collections";
         router.push("/collections");
+        toast.success(`Collection ${initialData ? "updated" : "created"}`);
       }
     } catch (err) {
       console.log("[collections_POST]", err);
@@ -87,24 +89,43 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initialData }) => {
       <Separator className="bg-grey-1 mt-4 mb-7" />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Title</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Title"
-                    {...field}
-                    onKeyDown={handleKeyPress}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
+          <div className=" md:grid md:grid-cols-2 gap-8">
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Title</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Title"
+                      {...field}
+                      onKeyDown={handleKeyPress}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="place"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Place</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      placeholder="Place"
+                      {...field}
+                      onKeyDown={handleKeyPress}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
           <div className="flex gap-10">
             <Button
               type="button"

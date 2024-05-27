@@ -18,6 +18,10 @@ export const columns: ColumnDef<CollectionType>[] = [
     ),
   },
   {
+    accessorKey: "place",
+    header: "Place",
+  },
+  {
     accessorKey: "products",
     header: "Products",
     cell: ({ row }) => <p>{row.original.products.length}</p>,

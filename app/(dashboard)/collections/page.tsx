@@ -44,7 +44,7 @@ const Collections = () => {
           onClick={() => router.push("/collections/new")}
         >
           <Plus className="h-4 w-4 mr-2" />
-          Create Collection
+          Create Category
         </Button>
       </div>
       <Separator className="bg-grey-1 my-4" />
