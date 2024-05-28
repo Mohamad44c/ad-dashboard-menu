@@ -29,4 +29,6 @@ const RateDetails = ({ params }: { params: { settingsId: string } }) => {
   return loading ? <Loader /> : <SettingsForm initialData={rateDetails} />;
 };
 
+export const dynamic = "force-dynamic";
+
 export default RateDetails;

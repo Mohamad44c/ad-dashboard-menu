@@ -4,4 +4,6 @@ const CreateCollection = () => {
   return <CollectionForm />;
 };
 
+export const dynamic = "force-dynamic";
+
 export default CreateCollection;
