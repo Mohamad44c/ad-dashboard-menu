@@ -7,6 +7,22 @@ export default withUt({
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontSize: {
+      "heading1-bold": [
+        "50px",
+        {
+          lineHeight: "1.2",
+          fontWeight: "700",
+        },
+      ],
+      "heading2-bold": [
+        "30px",
+        {
+          lineHeight: "1.2",
+          fontWeight: "700",
+        },
+      ],
+    },
     extend: {
       colors: {
         "white-1": "#F8F8F8",

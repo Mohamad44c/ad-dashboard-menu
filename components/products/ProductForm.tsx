@@ -22,7 +22,6 @@ import toast from "react-hot-toast";
 import Delete from "../custom-ui/Delete";
 import MultiSelect from "../custom-ui/MultiSelect";
 import Loader from "../custom-ui/Loader";
-import ImageUpload from "../custom-ui/ImageUpload";
 import { UploadButton } from "@/utils/uploadthing";
 import Image from "next/image";
 
@@ -236,7 +235,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
             )}
           </div>
 
-          <div className="md:grid md:grid-cols-2 gap-8">
+          <div className="md:grid md:grid-cols-1 gap-8">
             <FormField
               control={form.control}
               name="image"
@@ -249,8 +248,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                         <Image
                           src={form.getValues().image}
                           alt="Product Image"
-                          width={150}
-                          height={200}
+                          className="rounded-xl object-cover w-32 h-32"
+                          width={100}
+                          height={100}
                           priority={true}
                         />
                       )}

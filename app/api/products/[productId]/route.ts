@@ -59,7 +59,8 @@ export const POST = async (
       );
     }
 
-    const { title, description, collections, price,priceDineIn, image } = await req.json();
+    const { title, description, collections, price, priceDineIn, image } =
+      await req.json();
 
     if (!title || !price) {
       return new NextResponse("Not enough data to create a new product", {

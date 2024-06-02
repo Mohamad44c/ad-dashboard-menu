@@ -14,7 +14,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "../ui/button";
 import toast from "react-hot-toast";
 
 interface DeleteProps {
@@ -53,7 +52,7 @@ const Delete: React.FC<DeleteProps> = ({ item, id }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <Trash className="h-4 w-4 text-red-1" />
+        <Trash className="h-5 w-5 text-red-1" />
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-white text-grey-1">
         <AlertDialogHeader>

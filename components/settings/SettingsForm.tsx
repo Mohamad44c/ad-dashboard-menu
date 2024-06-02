@@ -65,7 +65,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
   };
 
   return (
-    <div className="">
+    <div className="px-10 py-5">
       {initialData ? (
         <div className="flex items-center justify-between">
           <p className="text-heading2-bold">Edit Rate</p>

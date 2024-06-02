@@ -2,11 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Plus } from "lucide-react";
 
 import { DataTable } from "@/components/custom-ui/DataTable";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import Loader from "@/components/custom-ui/Loader";
 import { columns } from "@/components/settings/SettingsColumns";
 import SettingsForm from "@/components/settings/SettingsForm";

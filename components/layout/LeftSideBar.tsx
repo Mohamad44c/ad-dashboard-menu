@@ -13,7 +13,7 @@ const LeftSideBar = () => {
   return (
     <div className="h-screen left-0 top-0 sticky p-10 flex flex-col gap-16 bg-nexus-blue shadow-xl max-lg:hidden">
       <Image
-        src="/logo.png"
+        src="https://utfs.io/f/f40d55f3-fb8e-483a-81a4-0cd432e0b739-1zbfv.png"
         alt="Nexus"
         priority={true}
         width={150}
