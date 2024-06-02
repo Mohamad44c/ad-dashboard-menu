@@ -93,7 +93,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log("Form Data:", values);
+    // console.log("Form Data:", values);
     try {
       setLoading(true);
       const url = initialData
