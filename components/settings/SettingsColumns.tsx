@@ -11,7 +11,7 @@ export const columns: ColumnDef<SettingType>[] = [
     cell: ({ row }) => (
       <Link
         href={`/settings/${row.original._id}`}
-        className="hover:text-blue-1"
+        className="text-blue-1"
       >
         {row.original.rate}
       </Link>
